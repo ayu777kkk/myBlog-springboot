@@ -27,7 +27,9 @@ public enum ResponseCodeEnum implements BaseExceptionInterface {
 
     UNAUTHORIZED("20002", "无访问权限，请先登录！"),
 
-    FORBIDDEN("20004", "演示账号仅支持查询操作！");
+    FORBIDDEN("20004", "演示账号仅支持查询操作！"),
+
+    USERNAME_NOT_FOUND("20003", "该用户不存在");
 
     // 异常码
     private String errorCode;
