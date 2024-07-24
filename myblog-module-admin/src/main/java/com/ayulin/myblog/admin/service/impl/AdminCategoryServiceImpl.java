@@ -5,7 +5,9 @@ import com.ayulin.myblog.admin.model.vo.category.DeleteCategoryReqVO;
 import com.ayulin.myblog.admin.model.vo.category.FindCategoryPageListReqVO;
 import com.ayulin.myblog.admin.model.vo.category.FindCategoryPageListRspVO;
 import com.ayulin.myblog.admin.service.AdminCategoryService;
+import com.ayulin.myblog.common.domain.dos.ArticleCategoryRelDO;
 import com.ayulin.myblog.common.domain.dos.CategoryDO;
+import com.ayulin.myblog.common.domain.mapper.ArticleCategoryRelMapper;
 import com.ayulin.myblog.common.domain.mapper.CategoryMapper;
 import com.ayulin.myblog.common.enums.ResponseCodeEnum;
 import com.ayulin.myblog.common.exception.BizException;
@@ -31,6 +33,9 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
 
     @Autowired
     private CategoryMapper categoryMapper;
+
+    @Autowired
+    private ArticleCategoryRelMapper articleCategoryRelMapper;
 
     /**
      * 添加分类
@@ -94,6 +99,14 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
     public Response deleteCategory(DeleteCategoryReqVO deleteCategoryReqVO) {
         // 分类 ID
         Long categoryId = deleteCategoryReqVO.getId();
+
+        // 校验该分类下是否已经有文章，若有，则提示需要先删除分类下所有文章，才能删除
+        ArticleCategoryRelDO articleCategoryRelDO = articleCategoryRelMapper.selectOneByCategoryId(categoryId);
+
+        if (Objects.nonNull(articleCategoryRelDO)) {
+            log.warn("==> 此分类下包含文章，无法删除，categoryId: {}", categoryId);
+            throw new BizException(ResponseCodeEnum.CATEGORY_CAN_NOT_DELETE);
+        }
 
         // 删除分类
         categoryMapper.deleteById(categoryId);
