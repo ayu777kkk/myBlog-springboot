@@ -48,6 +48,32 @@
             <artifactId>mapstruct</artifactId>
         </dependency>
 
+        <!-- Markdown 解析 -->
+        <dependency>
+            <groupId>org.commonmark</groupId>
+            <artifactId>commonmark</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.commonmark</groupId>
+            <artifactId>commonmark-ext-gfm-tables</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.commonmark</groupId>
+            <artifactId>commonmark-ext-heading-anchor</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.commonmark</groupId>
+            <artifactId>commonmark-ext-image-attributes</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.commonmark</groupId>
+            <artifactId>commonmark-ext-task-list-items</artifactId>
+        </dependency>
+
         <!-- 免写冗余的 Java 样板式代码 -->
         <dependency>
             <groupId>org.projectlombok</groupId>

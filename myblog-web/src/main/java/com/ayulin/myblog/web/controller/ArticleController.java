@@ -2,6 +2,7 @@ package com.ayulin.myblog.web.controller;
 
 import com.ayulin.myblog.common.aspect.ApiOperationLog;
 import com.ayulin.myblog.common.utils.Response;
+import com.ayulin.myblog.web.model.vo.article.FindArticleDetailReqVO;
 import com.ayulin.myblog.web.model.vo.article.FindIndexArticlePageListReqVO;
 import com.ayulin.myblog.web.service.ArticleService;
 import io.swagger.annotations.Api;
@@ -23,6 +24,13 @@ public class ArticleController {
     @ApiOperationLog(description = "获取首页文章分页数据")
     public Response findArticlePageList(@RequestBody FindIndexArticlePageListReqVO findIndexArticlePageListReqVO) {
         return articleService.findArticlePageList(findIndexArticlePageListReqVO);
+    }
+
+    @PostMapping("/article/detail")
+    @ApiOperation(value = "获取文章详情")
+    @ApiOperationLog(description = "获取文章详情")
+    public Response findArticleDetail(@RequestBody FindArticleDetailReqVO findArticleDetailReqVO) {
+        return articleService.findArticleDetail(findArticleDetailReqVO);
     }
 
 }
